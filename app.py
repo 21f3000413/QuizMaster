@@ -10,7 +10,7 @@ def setup_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///quiz_info.sqlite3"
     db.init_app(app)
     app.app_context().push()
-    print("Congrats, Your Server is Started....")
+    print("Welcome to the website....")
 
     
 setup_app()

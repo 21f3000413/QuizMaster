@@ -1,7 +1,9 @@
 from flask import render_template, request, url_for,flash, redirect, current_app as app, session
 from backend.models import *
 from datetime import date, datetime
-
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 @app.route("/")
 def home():
@@ -297,19 +299,33 @@ def user_details(name):
     return render_template('user_details.html', name=name, users=users)
 
 
-@app.route('/analytics/<name>')
+@app.route("/analytics/<name>")
 def analytics(name):
-    total_subjects = Subject.query.count()
-    total_quizzes = Quiz.query.count()
-    total_users = User.query.filter(User.role == 1).count() 
-    today = date.today()
-    active_quizzes = Quiz.query.filter(Quiz.date_of_quiz >= today).count()
-    subjects = Subject.query.all()
-    max_chapters = 1 
-    for subject in subjects:
-        if len(subject.chapters) > max_chapters:
-            max_chapters = len(subject.chapters)
-    return render_template('analytics.html', name=name,total_subjects=total_subjects,total_quizzes=total_quizzes, total_users=total_users,active_quizzes=active_quizzes,subjects=subjects,max_chapters=max_chapters)
+    plot = get_analytics()
+    plot.savefig("./static/images/analytics.jpeg")
+    plot.clf()
+    return render_template("analytics.html",name=name)
+
+def get_analytics():
+    results = db.session.query(
+        Quiz.quiz_title, 
+        func.max(Score.total_score).label("top_score")
+    ).join(Score, Score.quiz_id == Quiz.id) \
+     .group_by(Quiz.quiz_title) \
+     .all()
+    summary = {quiz_title: score for quiz_title, score in results}
+    x_names = list(summary.keys())
+    y_scores = list(summary.values())
+    plt.figure(figsize=(20, 12))
+    plt.bar(x_names, y_scores, color="green", width=0.5)
+    plt.xlabel("Quizzes", fontsize=40, fontweight='bold')
+    plt.ylabel("Top Scores (%)", fontsize=30, fontweight='bold')
+    plt.xticks(rotation=30, ha="right", fontsize=20)
+    plt.yticks(fontsize=20)
+    plt.tight_layout(pad=2)
+    return plt
+
+
 
 
 @app.route("/search/<name>", methods=["GET", "POST"])
