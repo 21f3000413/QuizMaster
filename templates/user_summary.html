@@ -1,0 +1,61 @@
+{% extends "user_layout.html" %}
+{% block content %}
+<h2 class="text-center text-info">Quiz Performance Summary</h2>
+
+<div class="shadow-lg p-4 rounded">
+    <canvas id="chapterChart" width="400" height="200"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// Data passed from Flask backend
+var chartData = JSON.parse('{{ chart_data|tojson|safe }}');
+var labels = chartData.map(item => item.chapter);
+var scores = chartData.map(item => item.score);
+
+var ctx = document.getElementById('chapterChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Chapter-wise Scores (%)',
+            data: scores,
+            backgroundColor: 'rgba(54, 162, 235, 0.8)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100
+            }
+        }
+    }
+});
+</script>
+
+<a href="{{ url_for('user_dashboard', name=name, user_id=user_id) }}" class="btn btn-gradient mt-3">
+    Go to Quizzes
+</a>
+
+<style>
+.btn-gradient {
+    background: linear-gradient(to right, #ff512f, #dd2476);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+.btn-gradient:hover {
+    background: linear-gradient(to right, #dd2476, #ff512f);
+}
+.shadow-lg {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+{% endblock %}

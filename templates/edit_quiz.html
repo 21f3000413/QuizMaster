@@ -1,0 +1,74 @@
+{% extends "admin_layout.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Edit Quiz</h3>
+        </div>
+        <div class="card-body">
+            <form action="/edit_quiz/{{ quiz.id }}/{{ name }}" method="POST">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="chapter_id" class="form-label fw-bold">
+                            <i class="fas fa-book me-2"></i>Select Chapter
+                        </label>
+                        <select class="form-control" name="chapter_id" id="chapter_id" required>
+                            <option value="" disabled>Select a Chapter</option>
+                            {% for chapter in chapters %}
+                                <option value="{{ chapter.id }}" 
+                                        {% if chapter.id == quiz.chapter_id %}selected{% endif %}>
+                                    {{ chapter.subject.sub_name }} - {{ chapter.chap_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="quiz_title" class="form-label fw-bold">
+                            <i class="fas fa-heading me-2"></i>Quiz Title
+                        </label>
+                        <input type="text" class="form-control" name="quiz_title" id="quiz_title" 
+                               value="{{ quiz.quiz_title }}" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="duration" class="form-label fw-bold">
+                            <i class="fas fa-clock me-2"></i>Duration (minutes)
+                        </label>
+                        <input type="number" class="form-control" name="duration" id="duration" 
+                               value="{{ quiz.duration }}" min="1" max="120" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="date_of_quiz" class="form-label fw-bold">
+                            <i class="fas fa-calendar me-2"></i>Date of Quiz
+                        </label>
+                        <input type="date" class="form-control" name="date_of_quiz" id="date_of_quiz" 
+                               value="{{ quiz.date_of_quiz }}" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="total_questions" class="form-label fw-bold">
+                            <i class="fas fa-question-circle me-2"></i>Total Questions
+                        </label>
+                        <input type="number" class="form-control" name="total_questions" id="total_questions" 
+                               value="{{ quiz.no_of_ques }}" min="1" max="50" required>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success me-2">
+                        <i class="fas fa-save me-2"></i>Update Quiz
+                    </button>
+                    <a href="/delete_quiz/{{ quiz.id }}/{{ name }}" class="btn btn-danger me-2" 
+                       onclick="return confirm('Are you sure you want to delete this quiz?');">
+                        <i class="fas fa-trash me-2"></i>Delete
+                    </a>
+                    <a href="/quiz_management/{{ name }}" class="btn btn-secondary">
+                        <i class="fas fa-times-circle me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

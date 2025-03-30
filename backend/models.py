@@ -12,8 +12,8 @@ class User(db.Model):
     email=db.Column(db.String,unique=True,nullable=False)
     password=db.Column(db.String,nullable=False)
     name=db.Column(db.String,nullable=False)
-    qualification=db.Column(db.String,nullable=False)
-    DOB=db.Column(db.Date,nullable=False)
+    # qualification=db.Column(db.String,nullable=False)
+    # DOB=db.Column(db.Date,nullable=False)
     role=db.Column(db.Integer,default=1)
 
     scores=db.relationship("Score",cascade="all,delete",backref="user",lazy="select")

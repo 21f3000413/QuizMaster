@@ -1,0 +1,21 @@
+{% extends "user_layout.html" %}
+{% block content %}
+<h2 class="text-center text-info mt-4">Quiz Details</h2>
+
+<div class="card shadow-lg mt-4">
+    <div class="card-header bg-primary text-white">
+        <h3>{{ quiz.quiz_title }}</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>Chapter:</strong> {{ chapter.chap_name }}</p>
+        <p><strong>Subject:</strong> {{ subject.sub_name }}</p>
+        <p><strong>Date of Quiz:</strong> {{ quiz.date_of_quiz.strftime('%Y-%m-%d') }}</p>
+        <p><strong>Duration:</strong> {{ quiz.duration }} minutes</p>
+        <p><strong>Total Questions:</strong> {{ quiz.no_of_ques }}</p>
+    </div>
+    <div class="card-footer">
+        <a href="{{ url_for('user_dashboard', name=name, user_id=user_id) }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+
+{% endblock %}

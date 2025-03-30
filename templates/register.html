@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+          crossorigin="anonymous">
+    <title>Signup</title>
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">  <!-- Makes it look more compact -->
+                
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} text-center">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Signup Card -->
+                <div class="card shadow-lg p-4">
+                    <h3 class="text-center mb-3">Sign Up</h3>
+                    <form action="/register" method="POST">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Username (Email)</label>
+                            <input type="email" class="form-control" name="email" id="email" 
+                                   placeholder="roll_no@ds.study.iitm.ac.in" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="name" id="name" 
+                                   placeholder="ex.--> Joe Sizzler" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="qualification" class="form-label">Qualification</label>
+                            <input type="text" class="form-control" name="qualification" id="qualification" 
+                                   placeholder="ex.--> Diploma" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dob" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" name="dob" id="dob" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                        <p class="text-center mt-3">Already have an account? <a href="/login">Log in</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

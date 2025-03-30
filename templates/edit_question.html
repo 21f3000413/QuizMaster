@@ -1,0 +1,90 @@
+{% extends "admin_layout.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Edit Question for Quiz: {{ question.quiz.quiz_title }}</h3>
+            <small>Subject: {{ question.quiz.chapter.subject.sub_name }} | Chapter: {{ question.quiz.chapter.chap_name }}</small>
+        </div>
+        <div class="card-body">
+            <form action="/edit_question/{{ question.id }}/{{ name }}" method="POST">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Enter question statement" 
+                                      id="question_statement" name="question_statement" 
+                                      style="height: 100px" required>{{ question.ques_statement }}</textarea>
+                            <label for="question_statement">Question Statement</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="option1" 
+                                   name="option1" placeholder="Option 1" 
+                                   value="{{ question.option1 }}" required>
+                            <label for="option1">Option 1</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="option2" 
+                                   name="option2" placeholder="Option 2" 
+                                   value="{{ question.option2 }}" required>
+                            <label for="option2">Option 2</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="option3" 
+                                   name="option3" placeholder="Option 3" 
+                                   value="{{ question.option3 }}" required>
+                            <label for="option3">Option 3</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="option4" 
+                                   name="option4" placeholder="Option 4" 
+                                   value="{{ question.option4 }}" required>
+                            <label for="option4">Option 4</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <div class="form-floating">
+                            <select class="form-select" id="correct_option" 
+                                    name="correct_option" required>
+                                <option value="1" {% if question.correct_option == 1 %}selected{% endif %}>Option 1</option>
+                                <option value="2" {% if question.correct_option == 2 %}selected{% endif %}>Option 2</option>
+                                <option value="3" {% if question.correct_option == 3 %}selected{% endif %}>Option 3</option>
+                                <option value="4" {% if question.correct_option == 4 %}selected{% endif %}>Option 4</option>
+                            </select>
+                            <label for="correct_option">Correct Answer</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="/quiz_management/{{ name }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Quizzes
+                    </a>
+                    <div>
+                        <a href="/delete_question/{{ question.id }}/{{ name }}" 
+                           class="btn btn-danger me-2" 
+                           onclick="return confirm('Are you sure you want to delete this question?');">
+                            <i class="fas fa-trash me-2"></i>Delete Question
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Question
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

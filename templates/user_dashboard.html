@@ -1,0 +1,40 @@
+{% extends "user_layout.html" %}
+{% block content %}
+<h2 class="text-center text-primary mt-4">Upcoming Quizzes</h2>
+
+<table class="table table-bordered shadow-lg rounded mt-4">
+    <thead style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white;">
+        <tr>
+            <th>SN</th>
+            <th>Chapter Name</th>
+            <th>Date of Quiz</th>
+            <th>Duration</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for quiz in quizzes %}
+        <tr class="{% if loop.index % 2 == 0 %}bg-light{% else %}bg-white{% endif %}">
+            <td>{{ loop.index }}</td>
+            <td>{{ quiz.chapter_name }}</td>
+            <td>{{ quiz.date_of_quiz.strftime('%Y-%m-%d') }}</td>
+            <td>{{ quiz.duration }} minutes</td>
+            <td>
+             <!-- View Quiz -->
+                <a href="{{ url_for('view_quiz', quiz_id=quiz.id) }}?user_id={{ user_id }}&name={{ name }}" class="btn btn-info btn-sm rounded-pill">View</a>
+
+                <!-- Start Quiz -->
+                <a href="/start_quiz/{{ quiz.id }}/{{ name }}/{{ user_id }}" class="btn btn-sm btn-success">Start Quiz</a>
+            </td>            
+            
+        </tr>
+        {% else %}
+        <!-- No quizzes found -->
+        <tr>
+            <td colspan="5" class="text-center text-danger">No upcoming quizzes found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

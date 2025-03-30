@@ -1,0 +1,17 @@
+{% extends "admin_layout.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card shadow-lg p-3" style="width: 40rem; border-radius: 15px;">
+        <div class="card-body text-center">
+            <h5 class="card-title" style="color: #4CAF50; font-weight: bold;">📊 Chapter-wise Top Scores</h5>
+            <div style="overflow-x: auto; max-width: 100%;">
+                <img src="/static/images/admin_summary.jpeg" 
+                     class="img-fluid rounded" 
+                     style="max-width: 100%; height: auto;">
+            </div>
+            <hr>
+            <a href="/admin/{{name}}" class="btn btn-primary btn-block mt-2">🏠 Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Edit Subject</h3>
+        </div>
+        <div class="card-body">
+            {% if subject %}
+            <form action="/edit_subject/{{subject.id}}/{{name}}" method="POST">
+                <div class="mb-3">
+                    <label for="subject_name" class="form-label fw-bold">Subject Name</label>
+                    <input type="text" class="form-control border-primary" name="subject_name" id="subject_name" 
+                           value="{{ subject.sub_name }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="code" class="form-label fw-bold">Code</label>
+                    <input type="text" class="form-control border-success" name="code" id="code" value="{{ subject.subject_code }}">
+                </div>
+                <div class="mb-3">
+                    <label for="credit" class="form-label fw-bold">Credit</label>
+                    <input type="number" class="form-control border-warning" name="credit" id="credit" value="{{ subject.credits }}">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-bold">Description</label>
+                    <input type="text" class="form-control border-danger" name="description" id="description" value="{{ subject.description }}">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success px-4">Save</button>
+                    <a href="/delete_subject/{{subject.id}}/{{name}}" class="btn btn-danger px-4" onclick="return confirm('Are you sure you want to delete this subject?');">Delete</a>
+                    <a href="/admin/{{name}}" class="btn btn-secondary px-4">Cancel</a>
+                </div>
+            </form>
+            {% else %}
+            <p class="text-center text-muted">Subject not found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

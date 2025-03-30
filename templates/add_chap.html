@@ -1,0 +1,28 @@
+{% extends "admin_layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="center"><h3>Add Chapter</h3></div>
+    <form action="/add_chapter/{{sub_id}}/{{name}}" method="POST">
+        <div class="input_form">
+            <div class="mb-3">
+                <label for="subject_id" class="form-label">Subject ID</label>
+                <input type="number" class="form-control" name="subject_id" id="subject_id" value="{{ subject_id }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="chapter_name" class="form-label">Chapter Name</label>
+                <input type="text" class="form-control" name="chapter_name" id="chapter_name" placeholder="Chapter Name" required>
+            </div>
+            <div class="mb-3">
+                <label for="chapter_no" class="form-label">Chapter No.</label>
+                <input type="number" class="form-control" name="chapter_no" id="chapter_no" placeholder="Chapter No." required>
+            </div>
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-primary px-4">Submit</button>
+                <a href="/admin/{{ name }}" class="btn btn-secondary px-4">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

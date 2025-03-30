@@ -1,0 +1,57 @@
+{% extends "admin_layout.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Edit Chapter</h3>
+        </div>
+        <div class="card-body">
+            {% if chapter %}
+            <form action="/edit_chapter/{{ chapter.id }}/{{ name }}" method="POST">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="existing_chapter_select" class="form-label fw-bold">
+                            <i class="fas fa-list-ul me-2"></i>Select Existing Chapter
+                        </label>
+                        <select name="existing_chapter" class="form-control" id="existing_chapter_select">
+                            <option value="">-- Choose Existing Chapter --</option>
+                            {% for existing_chapter in chapters %}
+                                <option value="{{ existing_chapter.id }}">
+                                    Chapter {{ existing_chapter.chap_no }} - {{ existing_chapter.chap_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <small class="form-text text-muted">Optional: Select an existing chapter to copy details</small>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="chapter_no" class="form-label fw-bold">
+                            <i class="fas fa-hashtag me-2"></i>Chapter Number
+                        </label>
+                        <input type="number" class="form-control" name="chapter_no" id="chapter_no" 
+                               value="{{ chapter.chap_no }}" required min="1">
+                    </div>
+                </div>
+           <div class="mb-3">
+                <label for="chapter_name" class="form-label fw-bold">
+                    Chapter Name
+                </label>
+                <input type="text" class="form-control" name="chapter_name" id="chapter_name" 
+                       value="{{ chapter.chap_name }}" required>
+            </div>
+            
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-success me-3">
+                    <i class="fas fa-save me-2"></i>Save Changes
+                </button>
+                <a href="/admin/{{ name }}" class="btn btn-secondary">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </a>
+            </div>
+        </form>
+        {% else %}
+        <p class="text-center text-muted">Chapter not found.</p>
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}

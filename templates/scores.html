@@ -1,0 +1,31 @@
+{% extends "user_layout.html" %}
+{% block content %}
+<h2 class="text-center text-success">Your Quiz Scores</h2>
+
+<table class="table table-striped shadow-lg rounded">
+    <thead style="background-image: linear-gradient(to right, #6a11cb, #2575fc); color: white;">
+        <tr>
+            <th>S.No</th>
+            <th>Date</th>
+            <th>Total Score</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for score in scores %}
+        <tr class="{% if loop.index is divisibleby 2 %}bg-light{% else %}bg-white{% endif %}">
+            <td>{{ loop.index }}</td>
+            <td>{{ score.time_stamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>{{ score.total_score }} / {{ quizzes[score.quiz_id].no_of_ques }}</td>
+
+            <td class="font-weight-bold {% if score.pass_fail_status == 'Pass' %}text-success{% else %}text-danger{% endif %}">
+                {{ score.pass_fail_ }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('user_dashboard', name=name, user_id=user_id) }}" class="btn btn-primary rounded-pill mt-3">Back to Dashboard</a>
+
+{% endblock %}

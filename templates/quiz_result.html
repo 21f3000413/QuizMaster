@@ -1,0 +1,8 @@
+{% extends "user_layout.html" %}
+{% block content %}
+<h2 class="center">Quiz Result</h2>
+<p>Total Score: {{ score.total_score }} / {{ quiz.no_of_ques }}</p>
+<p>Percentage: {{ (score.total_score / quiz.no_of_ques * 100)|round(2) }}%</p>
+<p>Status: <strong>{{ score.pass_fail_ }}</strong></p>
+<a href="{{ url_for('user_dashboard', name=name, user_id=user_id) }}" class="btn btn-primary">Go to Dashboard</a>
+{% endblock %}
