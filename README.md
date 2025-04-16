@@ -1,1 +1,1 @@
-This is a MAD1 Project named quiz-master. It is a multi-user app (one requires an administrator and other users) that acts as an exam preparation site for multiple courses.
+This is a Modern Application Development 1 Project named quiz-master. It is a multi-user app (one requires an administrator and other users) that acts as an exam preparation site for multiple courses.
